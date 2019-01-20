@@ -1,0 +1,92 @@
+#!/bin/bash
+# Lab 9 
+# Seongyeop Jeong
+# 040885882
+# course: CST8102 300
+
+# 2017-11-11
+# The user has is given 6 choices to execute including but not limited
+# to creating, deleting, or changing account expiration date for a user account.
+
+
+selection=
+
+while [ "$selection" != q ] && [ "$selection" != "Q" ] ; do 
+
+echo "A) Create a user account"
+echo "B) Delete a user account"
+echo "C) Change supplementary group for a user account"
+echo "D) Change initial group for a user account"
+echo "E) Change the default login shell for a user account"
+echo "F) Change the account expiration date"
+echo "Q) Quit"
+echo
+echo -n "Enter selection: "
+read selection
+echo 
+
+
+if [ "$selection" = "A" ] || [ "$selection" = "a" ] ; then
+echo "Enter the user name"
+read username
+echo "Enter the home directory"
+read home
+echo "Enter the login shell"
+read shell
+sudo useradd -d "$home" -m -s "$shell" "$username"
+echo 
+fi
+
+
+if [ "$selection" = "B" ] || [ "$selection" = "b" ] ; then
+echo "Enter the user to delete"
+read username
+sudo userdel -r "$username"
+echo 
+fi
+
+
+if [ "$selection" = "C" ] || [ "$selection" = "c" ] ; then
+echo "Enter the user to modify"
+read username
+echo "Enter the group's name"
+read group
+sudo groupadd $group
+sudo usermod -G "$group" "$username"
+echo
+fi
+
+
+if [ "$selection" = "D" ] || [ "$selection" = "d" ] ; then
+echo "Enter the user to modify"
+read username
+echo "Enter the group's name"
+read group
+sudo groupadd $group
+sudo usermod -g "$group" "$username"
+echo
+fi
+
+
+if [ "$selection" = "E" ] || [ "$selection" = "e" ] ; then
+echo "Enter the user to modify"
+read username
+echo "Enter the new shell"
+read shell
+sudo usermod -s "$shell" "$username"
+echo 
+fi
+
+
+if [ "$selection" = "F" ] || [ "$selection" = "f" ] ; then
+echo "Enter the user to modify"
+read username
+echo "Enter the new expiration date"
+read exp
+sudo usermod -e "$exp" "$username"
+echo 
+fi
+
+sleep 3
+
+done
